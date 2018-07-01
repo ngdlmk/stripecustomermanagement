@@ -1,33 +1,34 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import UserAddModal from "./UserAddModal";
-import UserEditModal from "./UserEditModal";
-import { lighten } from '@material-ui/core/styles/colorManipulator';
+import React from 'react'
+import classNames from 'classnames'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TablePagination from '@material-ui/core/TablePagination'
+import TableRow from '@material-ui/core/TableRow'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Paper from '@material-ui/core/Paper'
+import Checkbox from '@material-ui/core/Checkbox'
+import UserAddModal from "./UserAddModal"
+import UserEditModal from "./UserEditModal"
+import { lighten } from '@material-ui/core/styles/colorManipulator'
 
+const apiURL = 'http://localhost:9000/'
 const columnData = [
   { id: 'firstname', numeric: false, disablePadding: true, label: 'First Name' },
   { id: 'lastname', numeric: false, disablePadding: false, label: 'Last Name' },
   { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
   { id: 'description', numeric: false, disablePadding: false, label: 'Description' },
   { id: 'balance', numeric: false, disablePadding: false, label: 'Balance' },
-];
+]
 
 class EnhancedTableHead extends React.Component {
 
   render() {
-    const { onSelectAllClick, numSelected, rowCount } = this.props;
+    const { onSelectAllClick, numSelected, rowCount } = this.props
 
     return (
       <TableHead>
@@ -48,11 +49,11 @@ class EnhancedTableHead extends React.Component {
               >
                 {column.label}
               </TableCell>
-            );
+            )
           }, this)}
         </TableRow>
       </TableHead>
-    );
+    )
   }
 }
 
@@ -60,7 +61,7 @@ EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
   rowCount: PropTypes.number.isRequired,
-};
+}
 
 const toolbarStyles = theme => ({
   root: {
@@ -85,10 +86,10 @@ const toolbarStyles = theme => ({
   title: {
     flex: '0 0 auto',
   },
-});
+})
 
 let EnhancedTableToolbar = props => {
-  const { numSelected, classes } = props;
+  const { numSelected, classes } = props
 
   return (
     <Toolbar
@@ -130,15 +131,15 @@ let EnhancedTableToolbar = props => {
         ) : <UserAddModal isOpen={props.isOpen} handleClose={props.handleClose} handleSave={props.handleSave} addUser={props.addUser}  />}
       </div>
     </Toolbar>
-  );
-};
+  )
+}
 
 EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
-};
+}
 
-EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
+EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar)
 
 const styles = theme => ({
   root: {
@@ -151,11 +152,11 @@ const styles = theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
-});
+})
 
 class EnhancedTable extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       eFirstName: '',
@@ -169,8 +170,7 @@ class EnhancedTable extends React.Component {
       rowsPerPage: 10,
       addUserModalStatus: false,
       editUserModalStatus: false,
-      apiURL: 'http://localhost:9000/'
-    };
+    }
   }
 
   componentDidMount() {
@@ -178,46 +178,46 @@ class EnhancedTable extends React.Component {
   }
   handleSelectAllClick = (event, checked) => {
     if (checked) {
-      this.setState({ selected: this.state.customers.map(n => n.id) });
-      return;
+      this.setState({ selected: this.state.customers.map(n => n.id) })
+      return
     }
-    this.setState({ selected: [] });
-  };
+    this.setState({ selected: [] })
+  }
 
   handleClick = (id) => {
-    const { selected } = this.state;
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
+    const { selected } = this.state
+    const selectedIndex = selected.indexOf(id)
+    let newSelected = []
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, id)
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = newSelected.concat(selected.slice(1))
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selected.slice(0, -1))
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1),
-      );
+      )
     }
 
-    this.setState({ selected: newSelected });
-  };
+    this.setState({ selected: newSelected })
+  }
 
   handleChangePage = (event, page) => {
-    this.setState({ page });
-  };
+    this.setState({ page })
+  }
 
   handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.value });
-  };
+    this.setState({ rowsPerPage: event.target.value })
+  }
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
+  isSelected = id => this.state.selected.indexOf(id) !== -1
 
   handleSave = (userInfo) => {
-    const customers = [...this.state.customers];
-    const url = this.state.apiURL+'addcustomer'
+    const customers = [...this.state.customers]
+    const url = apiURL+'addcustomer'
     const customer = {
       id: "temp_id",
       firstname: userInfo.firstName,
@@ -280,7 +280,7 @@ class EnhancedTable extends React.Component {
     customers[customerIndex].description = this.state.eDescription
     customers[customerIndex].balance = this.state.eBalance
     this.setState({customers: customers, selected: [], editUserModalStatus: false})
-    const url = this.state.apiURL+'updatecustomer'
+    const url = apiURL+'updatecustomer'
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(customer),
@@ -301,7 +301,7 @@ class EnhancedTable extends React.Component {
     const customerIndex = customers.findIndex(customer => {
       return customer.id === customerID
     })
-    const url = this.state.apiURL+'deletecustomer'
+    const url = apiURL+'deletecustomer'
     const customer = {customerID: customerID}
     fetch(url, {
       method: 'POST',
@@ -315,10 +315,10 @@ class EnhancedTable extends React.Component {
   }
 
   listCustomers = () => {
-      var url = this.state.apiURL+'listcustomers';
+      var url = apiURL+'listcustomers'
       fetch(url, {method: 'POST'})
       .then((res) => {
-        return res.json();
+        return res.json()
       }).catch(error => console.error('Error:', error))
       .then((res) => {
         console.log(res)
@@ -335,12 +335,12 @@ class EnhancedTable extends React.Component {
         })
         this.setState({customers: customers})
         }
-      });
+      })
   }
   render() {
-    const { classes } = this.props;
-    const { customers, selected, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, customers.length - page * rowsPerPage);
+    const { classes } = this.props
+    const { customers, selected, rowsPerPage, page } = this.state
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, customers.length - page * rowsPerPage)
 
     return (
       <Paper className={classes.root}>
@@ -377,7 +377,7 @@ class EnhancedTable extends React.Component {
               {customers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
+                  const isSelected = this.isSelected(n.id)
                   return (
                     <TableRow
                       hover
@@ -399,7 +399,7 @@ class EnhancedTable extends React.Component {
                       <TableCell>{n.description}</TableCell>
                       <TableCell>{n.balance}€</TableCell>
                     </TableRow>
-                  );
+                  )
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 49 * emptyRows }}>
@@ -424,12 +424,12 @@ class EnhancedTable extends React.Component {
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
       </Paper>
-    );
+    )
   }
 }
 
 EnhancedTable.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(EnhancedTable);
+export default withStyles(styles)(EnhancedTable)

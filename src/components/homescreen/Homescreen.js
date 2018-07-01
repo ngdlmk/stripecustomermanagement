@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Appbar from './Appbar';
+import React, { Component } from 'react'
+import Appbar from './Appbar'
 import Userman from '../acontent/Userman'
 
 class Homescreen extends Component {
@@ -17,4 +17,4 @@ class Homescreen extends Component {
     }
 }
 
-export default Homescreen;
+export default Homescreen

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
+import React, { Component } from 'react'
+import TextField from '@material-ui/core/TextField'
 
 class Adduser extends Component {
 
@@ -53,4 +53,4 @@ class Adduser extends Component {
     }
 }
 
-export default Adduser;
+export default Adduser

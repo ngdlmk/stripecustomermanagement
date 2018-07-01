@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
+import React, { Component } from 'react'
+import TextField from '@material-ui/core/TextField'
 
 class Edituser extends Component {
 
@@ -57,4 +57,4 @@ class Edituser extends Component {
     }
 }
 
-export default Edituser;
+export default Edituser

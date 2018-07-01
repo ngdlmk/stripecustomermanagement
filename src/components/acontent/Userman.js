@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import EnhancedTable from "./EnhancedTable";
+import React, { Component } from 'react'
+import EnhancedTable from "./EnhancedTable"
 
 class Userman extends Component {
 
@@ -13,4 +13,4 @@ class Userman extends Component {
     }
 }
 
-export default Userman;
+export default Userman

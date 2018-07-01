@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import React, { Component } from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 
 const styles = {
   root: {
@@ -18,7 +18,7 @@ const styles = {
       backgroundColor: '#343d46',
       height: '100%',
   }
-};
+}
 
 class Appbar extends Component {
     render () {
@@ -34,8 +34,8 @@ class Appbar extends Component {
                 </AppBar>
                 </div>
             </div>
-        );
+        )
     }  
 }
 
-export default Appbar;
+export default Appbar
